@@ -1,30 +1,38 @@
+from art import logo
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+print (logo)
+program_open = True
 
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
+def caesar_cipher(original_text, shift_amount, encode_or_decode):
+    output_text = ""
+    if encode_or_decode in ("encode", "decode"):
+        if encode_or_decode == "decode":
+            shift_amount *= -1
+        for letter in original_text:
+            if letter in alphabet:
+                shifted_position = alphabet.index(letter) + shift_amount
+                shifted_position = shifted_position % len(alphabet)
+                output_text = output_text + alphabet[shifted_position]
+            else:
+                output_text = output_text + letter
+        print(f"This is your word '{output_text}'")
+    else:
+        print("Wrong request! Only type 'encode' to encrypt, type 'decode' to decrypt.")
 
-def encrypt(original_text, shift_amount):
-    encoded=""
-    for letter in original_text:
-        shifted_position = alphabet.index(letter) + shift_amount
-        shifted_position = shifted_position% len(alphabet)
-        encoded = encoded + alphabet[shifted_position]
-    print(encoded)
-encrypt("aaa", 3)
+    
+while program_open:
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+
+   
+    
+    caesar_cipher(original_text = text, shift_amount = shift, encode_or_decode = direction)
+    run_again = str(input("Type 'yes' if you want to go again. Otherwise, type 'no'\n")).lower()
+    if run_again == 'yes':
+        program_open = True
+    else:
+        program_open = False
 
 
-# TODO-1: Create a function called 'decrypt()' that takes 'original_text' and 'shift_amount' as inputs. DONE
-# TODO-2: Inside the 'decrypt()' function, shift each letter of the 'original_text' *backwards* in the alphabet
-#  by the shift amount and print the decrypted text. DONE
-# TODO-3: Combine the 'encrypt()' and 'decrypt()' functions into one function called 'caesar()'.    DONE
-#  Use the value of the user chosen 'direction' variable to determine which functionality to use.   DONE
-
-def decrypt(original_text, shift_amount):
-    decoded=""
-    for letter in original_text:
-        shifted_position = alphabet.index(letter) - shift_amount
-        shifted_position = shifted_position % len(alphabet)
-        decoded = decoded + alphabet[shifted_position]
-    print(decoded)
-decrypt("ddd", 3)
+    
