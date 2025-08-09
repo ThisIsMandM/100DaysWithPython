@@ -14,11 +14,11 @@ def encrypt(original_text, shift_amount):
 encrypt("aaa", 3)
 
 
-# TODO-1: Create a function called 'decrypt()' that takes 'original_text' and 'shift_amount' as inputs.
+# TODO-1: Create a function called 'decrypt()' that takes 'original_text' and 'shift_amount' as inputs. DONE
 # TODO-2: Inside the 'decrypt()' function, shift each letter of the 'original_text' *backwards* in the alphabet
-#  by the shift amount and print the decrypted text.
-# TODO-3: Combine the 'encrypt()' and 'decrypt()' functions into one function called 'caesar()'.
-#  Use the value of the user chosen 'direction' variable to determine which functionality to use.
+#  by the shift amount and print the decrypted text. DONE
+# TODO-3: Combine the 'encrypt()' and 'decrypt()' functions into one function called 'caesar()'.    DONE
+#  Use the value of the user chosen 'direction' variable to determine which functionality to use.   DONE
 
 def decrypt(original_text, shift_amount):
     decoded=""
