@@ -17,15 +17,10 @@ while bid_on:
     else:
          
         bid_on = False
-max_bid_name = None
-max_bid = -1
-for name , bid in bid_storage.items():
-    if bid > max_bid:
-        max_bid = bid
-        max_bid_name = name
-    else:
-        max_bid = max_bid
-    
-print(f"The Winner is {max_bid_name}, the final bid is ${max_bid}")
+
+    if bid_storage:
+        winner = max(bid_storage, key=bid_storage.get)
+
+    print(f"The Winner is {winner}, the final bid is ${bid_storage[winner]}")
     
 
