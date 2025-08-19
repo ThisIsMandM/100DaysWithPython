@@ -1,0 +1,128 @@
+from art import logo
+import random
+blackjack_on = True
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+while blackjack_on:
+    want_to_play = str(input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")).lower()
+    man_round = []
+    computer_round = []
+    if want_to_play == "y":
+        print(logo)
+
+        man_round += (random.choices(cards, k= 2))
+        computer_round += (random.choices(cards, k= 2))
+
+        print(f"Your Cards: {man_round}\nComputer's first card: {computer_round[0]}")
+        if 11 in computer_round and 10 in computer_round:
+            print("Computer Won! Blackjack.")
+            print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+
+            blackjack_on = False
+            break
+        if 11 in man_round and 10 in man_round and not 11 in computer_round:
+            print("User Won")
+            print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+            blackjack_on = False
+            break
+
+    while True:
+
+        still_play = str(input("Type 'y' to get another card, type 'n' to pass: ")).lower()
+        if still_play == "y":
+            computer_round.append(random.choice(cards))
+            man_round.append(random.choice(cards))
+
+            computer_score = sum(computer_round)
+            man_score = sum(man_round)
+
+            while computer_score < 17:
+                computer_round.append(random.choice(cards))
+                computer_score = sum(computer_round)
+
+            while computer_score > 21 and 11 in computer_round:
+                computer_round[computer_round.index(11)] = 1
+
+            while man_score > 21 and 11 in man_round:
+                man_round[man_round.index(11)] = 1
+
+
+            if man_score > 21 or computer_score > 21 :
+                if man_score > computer_score and man_score < 22:
+                    print("You win!")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's first card: {computer_round[0]}")
+                    break
+                elif man_score < computer_score and computer_score < 22:
+                    print("You lose!")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                    break
+                elif man_score == computer_score:
+                    print("Draw!")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                    break
+                elif man_score > 22 and computer_score > 22:
+                    print("You lose!")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                    break
+                elif man_score < 22 and computer_score > 22:
+                    print("You Win!")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                    break
+                else:
+                    print("You lose")
+                    print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                    blackjack_on = False
+                    print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                    break
+
+
+        else:
+            computer_score = sum(computer_round)
+            man_score = sum(man_round)
+            while sum(computer_round) < 17:
+                computer_round.append(random.choice(cards))
+                computer_score = sum(computer_round)
+            while computer_score > 21 and 11 in computer_round:
+                computer_round[computer_round.index(11)] = 1
+                computer_score = sum(computer_round)
+
+            if man_score > computer_score and man_score < 22:
+                print("You win!")
+                print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                blackjack_on = False
+                print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round[0]}")
+                break
+            elif man_score < computer_score and computer_score < 22:
+                print("You lose!")
+                print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                blackjack_on = False
+                print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                break
+            elif man_score == computer_score:
+                print("Draw!")
+                print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                blackjack_on = False
+                print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                break
+            elif man_score > 22:
+                print("You lose")
+                print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                blackjack_on = False
+                print(f"Your Cards: {man_round}\nComputer's Cards: {computer_round}")
+                break
+            else:
+                print("You lose")
+                print(f"Your Score: {man_score}, Computer Score {computer_score}")
+                blackjack_on = False
+                print(f"Your Cards: {man_round}\nComputer's cards: {computer_round}")
+                break
