@@ -1,3 +1,85 @@
 import random
 from art import logo
 
+def draw_card():
+    """This draws a random card from the deck."""
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return random.choice(cards)
+
+
+
+def hand_value(hand):
+    """This calculate the total value of the hand."""
+    total = sum(hand)
+    if total == 21 and len(hand) == 2 :
+        return 0 
+    
+    while total > 21 and 11 in hand:
+        hand.remove(11)
+        hand.append(1)
+        total = sum(hand)
+    
+    return total
+
+def decide_winner(player_score, dealer_score):
+    if player_score == dealer_score:
+        message = "Draw!"
+    elif dealer_score == 0:
+        message = "You lose — Dealer has a Blackjack!"
+    elif player_score == 0:
+        message = "You win with a Blackjack!"
+    elif player_score > 21:
+        message = "You went over. You lose!"
+    elif dealer_score > 21:
+        message = "Dealer went over. You win!"
+    elif player_score > dealer_score:
+        message = "You win!"
+    else:
+        message = "You lose!"
+
+    print(f"{message} Your score: {player_score}, Dealer score: {dealer_score}")
+
+def blackjack_round():
+    print(logo)
+    player_hand = []
+    dealer_hand = []
+
+    for _ in range(2):
+        player_hand.append(draw_card())
+        dealer_hand.append(draw_card())
+
+    finished = False
+
+    while not finished:
+        p_score = hand_value(player_hand)
+        d_score = hand_value(dealer_hand)
+
+        print(f"Your cards: {player_hand}")
+        print(f"Dealer cards: {dealer_hand[0]}")
+
+        if p_score == 0 or d_score == 0 or p_score > 21:
+            finished = True
+        else:
+            choice = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+            if choice == 'y':
+                player_hand.append(draw_card())
+            else:
+                finished = True
+
+        p_score = hand_value(player_hand)
+
+    d_score = hand_value(dealer_hand)      
+    while d_score != 0 and d_score < 17:
+        dealer_hand.append(draw_card())
+        d_score = hand_value(dealer_hand) 
+
+    print(f"Your final hand: {player_hand}, final score: {p_score}")
+    print(f"Dealer's final hand: {dealer_hand}, final score: {d_score}")
+    decide_winner(p_score, d_score)
+    
+
+while str(input("Do you want to play a game of blackjack? Type 'y' for yes or 'n' for no: ")).lower() == 'y':
+    print("\n" * 20) 
+    blackjack_round()
+
+            
