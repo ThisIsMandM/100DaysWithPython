@@ -29,10 +29,15 @@ def play_game(chances):
 
 
 if ready == "y":
-    difficulty = input("Choose the difficulty: type hard or easy. ").lower()
-    if difficulty == "easy":
-        play_game(10)
-    else:
-        play_game(5)
-
-
+    still_play = False
+    while not still_play:
+        difficulty = input("Choose the difficulty: type hard or easy. ").lower()
+        if difficulty == "easy":
+            play_game(10)
+        else:
+            play_game(5)
+        ask_again  = input("another round? type 'y' or 'n' ")
+        if ask_again == "n":
+            still_play = True
+else:
+    print("See you next time!")
